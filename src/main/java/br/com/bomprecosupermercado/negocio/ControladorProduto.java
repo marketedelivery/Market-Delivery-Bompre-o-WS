@@ -10,6 +10,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import br.com.bomprecosupermercado.classesBasicas.Produto;
 import br.com.bomprecosupermercado.dados.factory.DAOFactory;
@@ -94,6 +95,20 @@ public class ControladorProduto implements IControladorProduto
 			return new Produto();
 		}
 		return p;
+	}
+	
+	@GET
+	@Produces("application/json; charset=UTF-8")
+	@Consumes("application/json; charset=UTF-8")
+	@Path("/consultarProdutoPorId/{id}")
+	public Response consultarProdutoPorId(@PathParam("id") int produtoID) {
+		produtoDAO = DAOFactory.getProdutoDAO();
+		Produto produtoRetorno = produtoDAO.consultarPorId(produtoID);
+		if (produtoRetorno == null) {
+			return Response.ok().build();
+		}
+		return Response.ok(produtoRetorno).build();
+
 	}
 
 	@GET
