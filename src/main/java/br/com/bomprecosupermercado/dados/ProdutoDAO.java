@@ -89,7 +89,7 @@ public class ProdutoDAO extends DAOGenerico<Produto> implements IProdutoDAO
 
 	public Produto pesquisarProdutoComParametros(String nome, String tipo, String marca)
 	{
-		String consulta = "SELECT p FROM Produto p WHERE p.nome =:nome AND p.tipo =:tipo AND p.marca =:marca";
+		String consulta = "SELECT p FROM Produto p WHERE p.nome =:nome OR p.tipo =:tipo OR p.marca =:marca";
 		TypedQuery<Produto> retorno = getEntityManager().createQuery(consulta, Produto.class);
 		retorno.setParameter("nome", nome);
 		retorno.setParameter("tipo", tipo);
